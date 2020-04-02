@@ -472,7 +472,7 @@ $H$ is a closed smooth submanifold of $\mathfrak{X}$, where $\dim H = 0$. It fol
 \label{decomposition}
 \begin{theorem}{\cite[p.~116,~p.~26]{onishchik1993lie,van2003lie}}
 \label{connectedcommutativeliegroupdecomposition}
-Every connected commutative (or in other words abelian) Lie group $G$ is isomorphic to some product space $\mathbb{T}^p \times \mathbb{R}^q$ with $\dim G = p+q$, i.e. $G \simeq \mathbb{T}^p \times \mathbb{R}^q$.
+Every connected commutative (or in other words abelian) Lie group $G$ is isomorphic to some product space $\mathbb{R}^p \times \mathbb{T}^q$ with $\dim G = p+q$, i.e. $G \simeq \mathbb{R}^p \times \mathbb{T}^q$.
 \end{theorem}
 
 \begin{proof}
@@ -507,11 +507,11 @@ Since $\mathfrak{g}$ is a linear space, we can extend the basis $\mathbb{Z}\omeg
     \arrow{d}{\pi}
     \arrow[swap]{r}{\text{exp} \; \circ \; \varphi^{-1}}
 &   G\\	
-&   (\mathbb{R}/\mathbb{Z})^p \times \mathbb{R}^q 
+&   (\mathbb{R})^p \times \mathbb{R/\mathbb{Z}}^q 
 	\arrow[swap]{ur}{\overline{\text{exp} \; \circ \; \varphi^{-1}}}
 \end{tikzcd}
 \]
-The canonical map $\pi: \mathbb{R}^n \simeq \mathbb{R}^p \times \mathbb{R}^q \rightarrow (\mathbb{R}/\mathbb{Z})^p \times \mathbb{R}^q$ is locally diffeomorphic and $\overline{\text{exp} \circ \varphi^{-1}} \circ \pi$ as well. Due to the homogeneity of commutative lie groups, the map is everywhere a diffeomorphism. The projection $\overline{\text{exp} \; \circ \; \varphi^{-1}}$ is bijective, thus also a diffeomorphism and thus an isomorphism of Lie groups. By definition $\mathbb{R}^n/\mathbb{Z}^n \simeq (\mathbb{R}/\mathbb{Z})^n \simeq \mathbb{T}^n$ and the proof follows. \qed
+The canonical map $\pi: \mathbb{R}^n \simeq \mathbb{R}^p \times \mathbb{R}^q \rightarrow \mathbb{R}^p \times (\mathbb{R}/\mathbb{Z})^q$ is locally diffeomorphic and $\overline{\text{exp} \circ \varphi^{-1}} \circ \pi$ as well. Due to the homogeneity of commutative lie groups, the map is everywhere a diffeomorphism. The projection $\overline{\text{exp} \; \circ \; \varphi^{-1}}$ is bijective, thus also a diffeomorphism and thus an isomorphism of Lie groups. By definition $\mathbb{R}^q/\mathbb{Z}^q \simeq (\mathbb{R}/\mathbb{Z})^q \simeq \mathbb{T}^q$ and the proof follows. \qed
 \end{proof}
 
 \section{Supplementary Material for Sect. \ref{sec:persistenthomology}}
@@ -813,7 +813,7 @@ The neural net used in Sect. \ref{sec:numericalexperiments} is a partially inver
 where $\gamma,\beta$ and $\epsilon$ are free parameters updated during back propagation. The very first and last dense layer is not invertible. Its purpose is a learned projection into the desired subspace of dimension $(n-k)$ for some $k$ and afterwards projecting into the original space in an encoding fashion, see Fig. \ref{architecture}.
 
 \subsubsection{Non-invertible $\xi_i$- and $\psi_i$-Architecture}
-The invertible architecture, which is described in Sect. \ref{subsec:invertibleneuralnets}, uses the partially linear functions $\xi_1,\xi_2$ and $\psi_1,\psi_2$, which are parameterized during the learning process. The architecture is taken from the work of Ardizzone et al. \cite{ArdizzoneKRK19}. These functions are to be learned and are composed in a trivially invertible way, see Sect. \ref{subsec:invertibleneuralnets}. The functions themselves are implemented as neural subnets. Each function is a $\mathcal{C}^1$-net as described in Sect. \ref{resnet}, with a total of $3$ dense layers. The vector $\mathbf{u}_{1}^{(l)} \in \text{M}(n,\mathbb{R})$ is transformed by $\xi_1,\xi_2,\psi_1,\psi_2: \text{M}(n,\mathbb{R}) \rightarrow \text{M}(n,\mathbb{R})$, such that the dimension of the vector does not change. The leaky rectifying linear unit activation function has been selected for every layer in the subnet:
+The invertible architecture, which is described in Sect. \ref{subsec:invertibleneuralnets}, uses the partially linear functions $\xi_1,\xi_2$ and $\psi_1,\psi_2$, which are parameterized during the learning process. The architecture is taken from the work of Ardizzone et al. \cite{ArdizzoneKRK19}. These functions are to be learned and are composed in a trivially invertible way, see Sect. \ref{subsec:invertibleneuralnets}. The functions themselves are implemented as neural subnets. Each function is a $\mathcal{C}^1$-net with a total of $3$ dense layers, see Sect. \ref{resnet}. The vector $\mathbf{u}_{1}^{(l)} \in \text{M}(n,\mathbb{R})$ is transformed by $\xi_1,\xi_2,\psi_1,\psi_2: \text{M}(n,\mathbb{R}) \rightarrow \text{M}(n,\mathbb{R})$, such that the dimension of the vector does not change. The leaky rectifying linear unit activation function has been selected for every layer in the subnet:
 \begin{align}
 	\text{LeakyReLu}(\mathbf{x}^{(l)}) = 
 	\begin{dcases}
