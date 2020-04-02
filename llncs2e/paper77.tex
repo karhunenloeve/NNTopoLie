@@ -542,17 +542,17 @@ The $k$-th simplicial homology group $H^{\Delta}_n(K(X))$ of a simplicial comple
 \end{theorem}
 
 \begin{proof}
-Let $\{K^{\omega_{i}}\}_{i \in I}$ be the set of all connected components of the simplicial complex $K(X)$ of a point set $X$ and $H^{\Delta}_k\left(K\left(X\right)\right)$ its simplicial homology groups. We denote the homology groups of the components with $H_k^{\Delta}(K^{\omega_{i}}(X))$. With $C_k(K^{\omega_{i}}(X))$, we denote the group of $k$-chains for the connected component of the simplicial complex. Then $C_k(K^{\omega_{i}}(X)) \subseteq C_k(K(X))$ is a subgroup for all $i$.
+Let $\{K^{\omega_{i}}\}_{i \in I}$ be the set of all connected components of the simplicial complex $K(X)$ of a point set $X$ and $H^{\Delta}_k\left(K\left(X\right)\right)$ its simplicial homology groups. We denote the homology groups of the components with $H_k^{\Delta}(K^{\omega_{i}}(X))$. With $C_k(K^{\omega_{i}}(X))$, we denote the group of $k$-chains for the connected components of the simplicial complex. Then $C_k(K^{\omega_{i}}(X)) \subseteq C_k(K(X))$ is a subgroup for all $i$.
 
 \begin{lemma}
 The group of $k$-chains can be written as a direct sum of the connected components, i.e. $C_k(K(X)) \simeq \bigoplus_{i \in I} C_k(K^{\omega_{i}}(X))$. This also applies to the lower chain groups.
 \end{lemma}
 
 \begin{proof}
-Using the boundary operator, which is a homomorphism of groups, we get $C_{k-1}(K(X)) \simeq \bigoplus_{i \in I} \partial_k(C_{k}(K^{\omega_{i}}(X)))$. An element in the $(k+1)$-th chain group $v \in C_{k+1}(K(X))$ is represented by $v = \sum_{i \in I} v_{\omega_{i}}$. Thus $\partial_{k+1}(v) \in C_{k}(K(X))$ can be broken down to $\partial_{k+1}(v) = \sum_{i \in I} \partial_{k+1}(v_{\omega_{i}})$ where $v_{\omega_{i}} \in C^\omega_{k+1}(K^{\omega_{i}})$.\qed
+Using the boundary operator, which is a homomorphism of groups, we get $C_{k-1}(K(X)) \simeq \bigoplus_{i \in I} \partial_k(C_{k}(K^{\omega_{i}}(X)))$. An element in the $(k+1)$-th chain group $v \in C_{k+1}(K(X))$ is represented by $v = \sum_{i \in I} v_{\omega_{i}}$. Thus $\partial_{k+1}(v) \in C_{k}(K(X))$ can be broken down to $\partial_{k+1}(v) = \sum_{i \in I} \partial_{k+1}(v_{\omega_{i}})$ where $v_{\omega_{i}} \in C^\omega_{k+1}(K^{\omega_{i}}(X))$.\qed
 \end{proof}
 
-The groups of coundaries can also be decomposed. The kernel of $C_k(K^{\omega_{i}}(X))$ can be written as $\ker \partial_k(C_k(K^{\omega_{i}}(X)))$ $= \ker \partial_k(C_k(K(X)))$ $\cap$ $C_k(K^{\omega_{i}}(X))$.
+The groups of boundaries can also be decomposed. The kernel of $C_k(K^{\omega_{i}}(X))$ can be written as $\ker \partial_k(C_k(K^{\omega_{i}}(X)))$ $= \ker \partial_k(C_k(K(X)))$ $\cap$ $C_k(K^{\omega_{i}}(X))$.
 \begin{align}
 	\ker \partial_k &\simeq \bigoplus_{i \in I} \partial_k\left(C_k\left(K^{\omega_{i}}(X)\right)\right), \text{which implies}\\
 	&\Rightarrow \frac{\ker \partial_k\left(C_k\left(K\left(X\right)\right)\right)}{\Ima \partial_{k+1}\left(C_{k+1}\left(K\left(X\right)\right)\right)} \simeq \bigoplus_{i \in I} \frac{\ker \partial_k(C_k(K^{\omega_{i}}(X)))}{\Ima \partial_{k+1}(C_{k+1}(K^{\omega_{i}}(X)))}\\
@@ -570,7 +570,7 @@ A \emph{path component} of a topological space $X$ is an equivalence class under
 \end{definition}
 
 \begin{remarkdef}
-Since for simplicial complexes, the property to be connected corresponds to path-connectedness, the coordinatewise sum of the connected components is a generator of the whole group.
+Since for simplicial complexes the property to be connected corresponds to path-connectedness, the coordinatewise sum of the connected components is a generator of the whole group.
 \end{remarkdef}
 
 \begin{theorem}{\cite[p.~129]{hatcher2002algebraic}}
