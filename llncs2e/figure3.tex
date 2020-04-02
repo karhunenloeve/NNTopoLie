@@ -1,0 +1,58 @@
+\begin{figure}[t!]
+\begin{tikzpicture}
+\begin{axis}[
+	height=2.3in,
+	width= 2.7in,
+	axis x line = bottom,
+	axis y line = left,
+	minor x tick num=10,
+	ylabel={$\frac{\omega_i + \omega_{j+1}}{2}$},
+	xlabel={(a) cifar10.},
+	xmin=0,
+	xmax=1050,
+	ymin=0,
+	ymax=650,
+	ticklabel style={font=\small},
+	x label style={at={(axis description cs:0.5,-0.1)},anchor=north},
+	y label style={at={(axis description cs:0.20,0.85)},rotate=-90,anchor=south, fill=white},
+	axis line style={-{Latex[length=1.5mm,width=1.5mm]}}
+]
+\coordinate (spypoint) at (axis cs:85,50);
+\coordinate (magnifyglass) at (axis cs:800,400);
+\draw [thick, dotted, draw=gray] (axis cs: 0,580) -- (axis cs: 1050,580) node[pos=0.9, below] {$\infty$};
+\end{axis}
+\begin{scope}[spy using outlines={circle, magnification=4, connect spies}]
+\node[inner sep=0pt] at (2.55,1.9) {\includegraphics[width=0.42\textwidth]{figure3_a.pdf}};
+\spy [lightgray, size=2cm] on (spypoint) in node[fill=white] at (magnifyglass);
+\end{scope} 
+\end{tikzpicture}\hfill
+\begin{tikzpicture}
+\begin{axis}[
+	height=2.3in,
+	width= 2.7in,
+	axis x line = bottom,
+	axis y line = left,
+	minor x tick num=10,
+	xlabel={(b) cifar100.},
+	xmin=0,
+	xmax=1050,
+	ylabel={$\cdot 10^{3}$},
+	ymin=0,
+	ymax=5,
+	ticklabel style={font=\small, fill=white},
+	x label style={at={(axis description cs:0.5,-0.1)},anchor=north},
+	y label style={at={(axis description cs:0.1,0.9)},rotate=-90,anchor=south},
+	axis line style={-{Latex[length=1.5mm,width=1.5mm]}}
+]
+\draw [thick, dotted, draw=gray] (axis cs: 0,4.45) -- (axis cs: 1050,4.45) node[pos=0.9, below] {$\infty$};
+\end{axis}
+\node[inner sep=0pt] (h) at (2.55,1.9) {\includegraphics[width=0.42\textwidth]{figure3_b.pdf}};
+\node[inner sep=0pt] (h) at (4.5,3.1) {{\color{blacky}$\bullet$} {$H_0$}};
+\node[inner sep=0pt] (h) at (4.5,2.7) {{\color{gray}$\bullet$} {$H_1$}};
+\node[inner sep=0pt] (h) at (4.5,2.3) {{\color{purpur}$\bullet$} {$H_2$}};
+\node[inner sep=0pt] (h) at (4.5,1.9) {{\color{brick}$\bullet$} {$H_3$}};
+\node[inner sep=0pt] (h) at (4.5,1.5) {{\color{fire}$\bullet$} {$H_4$}};
+\end{tikzpicture}
+\caption{Mean confident persistence landscapes of the investigated datasets cifar10 and cifar100 with a resolution of $1000$. The mean persistence landscapes were computed on truncated persistence diagrams, with a confidence of $\alpha = 0.95$ for a representative of a persistent homology class tracked on the filtration.}
+\label{homgroups}
+\end{figure}

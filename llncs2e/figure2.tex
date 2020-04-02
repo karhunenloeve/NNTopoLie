@@ -1,0 +1,17 @@
+\begin{figure}[t!]
+\centering
+\begin{tikzcd}
+& M\simeq \mathbb{R}^n \arrow[ld, "x^{(0)}", bend right = 15] 
+& U \simeq \mathbb{R}^{n-k} \arrow[ld, "x^{(1)}" pos=0.8, swap, bend right = 15] \arrow[d, "x^{(2)}"] \arrow[rd, "x^{(L-1)}", bend left = 15] \arrow[l, hook', swap, "\imath"] 
+&\\
+x^{(0)}(M) \arrow[r, "\varphi^{(0)}"] 
+& x^{(1)}(U) \arrow[r, leftrightarrow, "\varphi^{(1)}"]
+& x^{(2)}(U) \arrow[r, leftrightarrow, "\varphi^{(L-1)}", dotted]
+& x^{(L-1)}(U) \arrow[r, hook, "\varphi^{(L)}"]
+& x^{(L)}(M)
+\end{tikzcd}
+\caption{The architecture of the neural net maps over $\varphi^{(0)}$ into a subspace of $M$, in
+which the searched manifold $U$ of the data can be embedded. The maps $\varphi^{(1)}, \cdots, \varphi^{(L-1)}$
+are models of bijective, smooth and therefore diffeomorphic functions.}
+\label{architecture}
+\end{figure}
