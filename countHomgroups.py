@@ -15,7 +15,7 @@ from os.path import isfile, join
 def list_diff(list1, list2): 
     return (list(set(list1) - set(list2))) 
 
-def execute_experiments(i):
+def execute_experiments(x_train: np.ndarray, i: int):
     print("Current dimension: " + str(i))
     invertible_autoencoder = Model(
     input_img, dense_invertible_subspace_autoencoder(input_img, units=i, invertibleLayers=5, groupLayers=3)
@@ -48,5 +48,3 @@ def homgroups_dimension():
                 number = number * ((p - homologygroup + i) / i)
             if number > (homcount - epsilon) and number < (homcount + epsilon):
                 print("The amount of needed spheres for H" + str(homologygroup) + " is approximately " + str(p) + " for epsilon = " + str(number - homcount))
-
-homgroups_dimension()
