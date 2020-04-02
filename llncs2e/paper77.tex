@@ -697,7 +697,7 @@ For each $1 \leq i \leq j -1$ the restriction $\tilde{\sigma}$ to $U \cap \parti
 \end{align}
 The singular simplex $\tilde{\sigma}_0$ is equal to $\sigma_i$ for a $v_i \in \Delta^k$ with $v_i = 0$. Similarly, $\tilde{\sigma}_j$ is equal to $\sigma_j$ for a $v_j \in \Delta^k$ with $v_j = 0$.
 
-An analogous argument shows, that for some face of a singular simplex $\tilde{\sigma}$, restricted to $U \cap \partial_j \Delta^k$, the inductive step can be completed as follows:
+An analogous argument shows, that for any face of a singular simplex $\tilde{\sigma}$, restricted to $U \cap \partial_j \Delta^k$, the inductive step can be completed as follows:
 \begin{align}
 &\tilde{\sigma} \circ \left(v_1,\cdots,v_{j-1},0,v_{j+1},\cdots, v_n\right) = \\
 = \; &\tilde{\sigma}_0 \circ \left(v_1, \cdots, x_{j-1}, 0, v_{j+1}, \cdots, v_n\right) - \\
@@ -715,7 +715,7 @@ For each simplex we construct a homotopy to a smooth simplex, such that the homo
 
 \begin{lemma}
 \label{smoothhomtop}
-For every $k$-simplex $\sigma: \Delta^k \rightarrow M$ from the standard $k$-simplex of $\mathbb{R}^n$ to $M$, there exists a continous map $h_\sigma: \Delta^k \times I \rightarrow M$, beeing a homotopy, satisfying the following conditions:
+For every $k$-simplex $\sigma: \Delta^k \rightarrow M$ from the standard $k$-simplex of $\mathbb{R}^n$ to $M$, there exists a continuous map $h_\sigma: \Delta^k \times I \rightarrow M$, beeing a homotopy, satisfying the following conditions:
 \begin{itemize}
 	\item[(1)] $h_\sigma$ maps from $\sigma(v) = h_\sigma(v,0)$ to a smooth $k$-simplex $\tilde{\sigma}(v) = h_\sigma(v,1)$.
 	\item[(2)] For each boundary face inclusion $s_{i,k}: \Delta^{k-1} \simeq \partial_{i} \Delta^k \hookrightarrow \Delta^{k}$, we get \\$h_{\sigma \circ s_{i,k}}(v,t)$ $=$ $h_\sigma(s_{i,k}(v),t)$ for $(v,t) \in \Delta^{k-1} \times I$.
@@ -810,7 +810,7 @@ The neural net used in Sect. \ref{sec:numericalexperiments} is a partially inver
 \begin{align}
 	\text{BN}(\mathbf{x}^{(l)}_{(k)})_{\gamma^{(l)}_{(k)},\beta^{(l)}_{(k)}} = \frac{\gamma}{\sqrt{\text{Var}[\mathbf{x}^{(l)}_{(k)}] + \epsilon}} \mathbf{x}^{(l)}_{(k)} + \left( \beta - \frac{\gamma \text{E}[\mathbf{x}^{(l)}_{(k)}]}{\sqrt{\text{Var}[\mathbf{x}^{(l)}_{(k)}]+\epsilon}} \right),
 \end{align}
-where $\gamma,\beta$ and $\epsilon$ are free parameters updated during back propagation. The very first and last dense layer is not invertible. Its purpose is a learned projection into the desired subspace of dimension $(n-k)$ for some $k$ and afterwards projecting into the original space in an encoding fashion, see Fig. \ref{architecture}.
+where $\gamma,\beta$ and $\epsilon$ are parameters updated during back propagation. The very first and last dense layer is not invertible. Its purpose is a learned projection into the desired subspace of dimension $(n-k)$ for some $k$ and afterwards projecting into the original space in an encoding fashion, see Fig. \ref{architecture}.
 
 \subsubsection{Non-invertible $\xi_i$- and $\psi_i$-Architecture}
 The invertible architecture, which is described in Sect. \ref{subsec:invertibleneuralnets}, uses the partially linear functions $\xi_1,\xi_2$ and $\psi_1,\psi_2$, which are parameterized during the learning process. The architecture is taken from the work of Ardizzone et al. \cite{ArdizzoneKRK19}. These functions are to be learned and are composed in a trivially invertible way, see Sect. \ref{subsec:invertibleneuralnets}. The functions themselves are implemented as neural subnets. Each function is a $\mathcal{C}^1$-net with a total of $3$ dense layers, see Sect. \ref{resnet}. The vector $\mathbf{u}_{1}^{(l)} \in \text{M}(n,\mathbb{R})$ is transformed by $\xi_1,\xi_2,\psi_1,\psi_2: \text{M}(n,\mathbb{R}) \rightarrow \text{M}(n,\mathbb{R})$, such that the dimension of the vector does not change. The leaky rectifying linear unit activation function has been selected for every layer in the subnet:
