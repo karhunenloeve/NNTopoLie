@@ -30,9 +30,9 @@
 
 \usepackage[hidelinks]{hyperref}
 \hypersetup{
-    pdftitle={Invertible Resnets up to Homology Equivalence for Connected Abelian Lie Groups},    % title
+    pdftitle={Parametrization of Neural Networks with Connected Abelian Lie Groups as Data Manifold},    % title
     pdfauthor={Luciano Melodia},     % author
-    pdfsubject={Invertible Neural Nets up to Homology Equivalence},   % subject of the document
+    pdfsubject={Neural Networks on Connected Abelian Lie Groups},   % subject of the document
     pdfcreator={Luciano Melodia},   % creator of the document
     pdfproducer={Luciano Melodia},  % producer of the document
     pdfkeywords={Embedding Dimension} {Parametrization} {Persistent Homology} {Neural Nets} {Manifold Learning}, % list of keywords
@@ -99,7 +99,7 @@
 %
 \title{Parametrization of Neural Networks with Connected Abelian Lie Groups as Data Manifold}
 %
-\titlerunning{Invertible Resnets up to Homology Equivalence}
+\titlerunning{Neural Networks on Connected Abelian Lie Groups}
 % If the paper title is too long for the running head, you can set
 % an abbreviated paper title here
 %
@@ -330,7 +330,7 @@ We train an autoencoder and use as input heavily noisy images and map them to th
 \paragraph{Neural Nets} The data manifold is supposed to be some connected commutative Lie group. We perturb each input vector $\textbf{x}^{(0)}$ with Gaussian noise, such that the input is weighted $0.8 \cdot \textbf{x}^{(0)} + 0.5 \cdot \epsilon$ with $\epsilon \sim \mathcal{N}(0,\sigma^2 \mathbf{I})$. These input vectors are trained to the original vector $\textbf{x}^{(0)}$. We use $\text{L}(\textbf{x}^{(0)}, \textbf{y}) = \frac{1}{n} \sum_{i=1}^{n} \left(\textbf{x}^{(0)}_i-\textbf{y}_i\right)^2$ as loss function. The sigmoid activation function $\sigma(\mathbf{x}^{(l)}) = \frac{1}{1 + e^{-\mathbf{x}^{(l)}}}$ is applied as elementwise activation function throughout the net. In all experiments dense neural nets are used with a bias term. The datasets are flattened from $(32,32,3)$ into $(3072)$. The first layer is applied to the flattened dataset, which is also adapted by back propagation, i.e. $\varphi^{(0)}\left(x^{(0)} \right) =$ $\sigma\left( \sum_{i=1}^{n} \textbf{W}_{ji}^{(1)} \textbf{x}_{i}^{(0)} + \textbf{b}_{i}^{(1)} \right)$. It transfers the data to the desired embedding dimension. The subsequent layers are implemented as $\mathcal{C}^1$-residual invertible layers, see Sect. \ref{resnet} and Sect. \ref{subsec:invertibleneuralnets}. A total of $5$ of these hidden layers are used, all with the same embedding dimension. More details can be found in Appx. \ref{appx:numexp}.
 
 \subsection{Results}
-Tab. \ref{stats} shows the representatives of homology classes from their respective groups for cifar10 and cifar100. Further, it shows the estimated minimal embedding dimension for a manifold with these homology groups for $\mathcal{C}^1$ to $\mathcal{C}^4$-resnets. The representatives for the $k$-th homology group $\sharp_k^{H}\left(\bar{\mathfrak{L}}\left(\mathfrak{P}(K(X))\right)\right)$ of the respective dataset are counted. Then, we seek for an embedding dimension to represent a manifold with the number of spheres $q$ with these homology groups. A Monte Carlo approach is used to find integer solutions of Eq. \ref{countingequation}. All models below our dimensional treshold show explosions of the gradient, see Fig. \ref{costfunctions}. The dimension of the respective loss function can be identified by the transition \gradient{}, from the lowest tested dimension to the highest, see Fig. \ref{costfunctions}. The models above the treshold remain stable. Higher parameterized tested models are stable. A single net still shows an explosive gradient in Fig. \ref{costfunctions} (b). This is due to the fact that the neural network layers themself are not connected nor abelian and are not explicitly restricted to such a structure. The net showing the deflection of gradient is close to our threshold. We specify the parameterization for an embedding as well as for neural nets of the smoothness degree $1$--$4$.
+Tab. \ref{stats} shows the representatives of homology classes from their respective groups for cifar10 and cifar100. Further, it shows the estimated minimal embedding dimension for a manifold with these homology groups for $\mathcal{C}^1$ to $\mathcal{C}^4$-invertible resnets. The representatives for the $k$-th homology group $\sharp_k^{H}\left(\bar{\mathfrak{L}}\left(\mathfrak{P}(K(X))\right)\right)$ of the respective dataset are counted. Then, we seek for an embedding dimension to represent a manifold with the number of spheres $q$ with these homology groups. A Monte Carlo approach is used to find integer solutions of Eq. \ref{countingequation}. All models below our dimensional treshold show explosions of the gradient, see Fig. \ref{costfunctions}. The dimension of the respective loss function can be identified by the transition \gradient{}, from the lowest tested dimension to the highest, see Fig. \ref{costfunctions}. The models above the treshold remain stable. Higher parameterized tested models are stable. A single net still shows an explosive gradient in Fig. \ref{costfunctions} (b). This is due to the fact that the neural network layers themself are not connected nor abelian and are not explicitly restricted to such a structure. The net showing the deflection of gradient is close to our threshold. We specify the parameterization for an embedding as well as for neural nets of the smoothness degree $1$--$4$.
 \input{figure4.tex}
 
 \section{Conclusions}
