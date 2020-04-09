@@ -4,17 +4,17 @@ Neural nets have been used in an elusive number of scientific disciplines. Never
 **Keywords**: Embedding Dimension, Parametrization, Persistent Homology, Neural Networks and Manifold Learning.
 
     @article{DBLP:journals/corr/abs-2004-02881,
-     author    = {Luciano Melodia and
-                  Richard Lenz},
-     title     = {Parametrization of Neural Networks with Connected Abelian Lie Groups
-                  as Data Manifold},
-     journal   = {CoRR},
-     volume    = {abs/2004.02881},
-     year      = {2020},
-     url       = {https://arxiv.org/abs/2004.02881},
-     archivePrefix = {arXiv},
-     eprint    = {2004.02881},
-     timestamp = {Wed, 08 Apr 2020 17:08:25 +0200},
-     biburl    = {https://dblp.org/rec/journals/corr/abs-2004-02881.bib},
-     bibsource = {dblp computer science bibliography, https://dblp.org}
-   }
+         author    = {Luciano Melodia and
+                      Richard Lenz},
+         title     = {Parametrization of Neural Networks with Connected Abelian Lie Groups
+                      as Data Manifold},
+         journal   = {CoRR},
+         volume    = {abs/2004.02881},
+         year      = {2020},
+         url       = {https://arxiv.org/abs/2004.02881},
+         archivePrefix = {arXiv},
+         eprint    = {2004.02881},
+         timestamp = {Wed, 08 Apr 2020 17:08:25 +0200},
+         biburl    = {https://dblp.org/rec/journals/corr/abs-2004-02881.bib},
+         bibsource = {dblp computer science bibliography, https://dblp.org}
+    }
