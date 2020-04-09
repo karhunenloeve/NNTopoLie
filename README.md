@@ -3,6 +3,7 @@ Neural nets have been used in an elusive number of scientific disciplines. Never
 
 **Keywords**: Embedding Dimension, Parametrization, Persistent Homology, Neural Networks and Manifold Learning.
 
+## Citation
     @article{DBLP:journals/corr/abs-2004-02881,
          author    = {Luciano Melodia and
                       Richard Lenz},
