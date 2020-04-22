@@ -37,6 +37,9 @@ Neural nets have been used in an elusive number of scientific disciplines. Never
     - [List differences]()
     - [Execute experimental autoencoder training]()
     - [Derive dimension from homology groups]()
+3. [3D Counterplots `counter3DPlot.py`]()
+4. [Persistence landscapes `persistenceLandscapes.py`]()
+5. [Persistence statistics `persistenceStatistics.py`]()
 
 ## imageAutoencode
 
