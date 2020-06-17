@@ -1,24 +1,7 @@
-# Invertible Resnets up to Homology Equivalence
-Neural nets have been used in an elusive number of scientific disciplines. Nevertheless, their parameterization is largely unexplored. Dense nets are the coordinate transformations of a manifold from which the data is sampled. After processing through a layer, the representation of the original manifold may change. This is crucial for the preservation of its topological structure and should therefore be parameterized correctly. We discuss a method to determine the smallest topology preserving layer for an invertible residual net. We consider the data domain as abelian connected matrix group and observe that it is decomposable into the *p*-dimensional Euclidean space and the *q*-torus. Persistent homology allows us to count its *k*-th homology groups. Using Künneth's theorem, we count the *k*-th Betti numbers. Since we know the embedding dimension of Euclidean space and the *1*-sphere, we parameterize the bottleneck layer with the smallest possible matrix group, which can represent a manifold with those homology groups. Resnets guarantee smaller embeddings due to the dimension of their state space representation.
+# Estimate of the Neural Net Dimension Using Algebraic Topology and Lie Theory
+In this paper we present an approach to determine the smallest possible number of perceptrons in a neural net in such a way that the topology of the input space can be learned sufficiently well. We introduce a general procedure based on persistent homology to investigate topological invariants of the manifold on which we suspect the data set. We specify the required dimensions precisely, assuming that there is a smooth manifold on or near which the data are located. Furthermore, we require that this space is connected and has a commutative group structure in the mathematical sense. These assumptions allow us to derive a decomposition of the underlying space whose topology is well known. We use the representatives of the $k$-dimensional homology groups from the persistence landscape to determine an integer dimension for this decomposition. This number is the dimension of the embedding that is capable of capturing the topology of the data manifold. We derive the theory and validate it experimentally on toy data sets. 
 
 **Keywords**: Embedding Dimension, Parametrization, Persistent Homology, Neural Networks and Manifold Learning.
-
-## Citation
-    @article{DBLP:journals/corr/abs-2004-02881,
-         author    = {Luciano Melodia and
-                      Richard Lenz},
-         title     = {Parametrization of Neural Networks with Connected Abelian Lie Groups
-                      as Data Manifold},
-         journal   = {CoRR},
-         volume    = {abs/2004.02881},
-         year      = {2020},
-         url       = {https://arxiv.org/abs/2004.02881},
-         archivePrefix = {arXiv},
-         eprint    = {2004.02881},
-         timestamp = {Wed, 08 Apr 2020 17:08:25 +0200},
-         biburl    = {https://dblp.org/rec/journals/corr/abs-2004-02881.bib},
-         bibsource = {dblp computer science bibliography, https://dblp.org}
-    }
 
 ## Content
 

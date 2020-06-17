@@ -236,15 +236,15 @@ We train an auto-encoder using as input heavily noisy images and map them to the
     x^{(L)}(M).
     \end{align*}
 
-\subsubsection*{Results} 
+\subsubsection*{Results} In Fig. \ref{figure2} c) d) we colored the neural nets according to the chosen embedding, such that the lines show the following dimensions ${\color{red1}\bullet} = [2, \cdots, 148]$, ${\color{red2}\bullet} = [150, \cdots, 198]$, ${\color{red3}\bullet} = [200, \cdots, 292]$ and ${\color{red4}\bullet} = [\dim U \approx 294, \cdots, 784]$.  The embedding dimension can be taken from Tab. \ref{figure3}, due to the trivial invertibility of our neural nets this integer must be doubled, see \cite{DinhSB17}. All models below our dimensional treshold $\dim U$ show drastic explosions of the gradient, see Fig. \ref{figure2} c) d). The models above the treshold remain stable. A single net still shows an explosive gradient colored ${\color{red4}\bullet}$ in Fig. \ref{figure2} d). The net showing the deflection of gradient is very close to our threshold, identified as $292$ dimensional embedding. The closer we come to the treshold, the sparser the fluctuations of loss. We justified that the minimal embedding dimension does not lie below our treshold.
 
 \section{Conclusion}
 Based on the theory of Lie groups and persistent homology a method for neural nets has been developed to parameterize them using the assumption that the data lies on or near by some connected commutative Lie group. This forms an approximate solution for a special case of learning problems, allowing to restrict the domain to a commutative group beeing a connected smooth manifold. 
 
 Applying Künneth's theorem, the homology groups of the topological factor spaces could be connected with the ones of their product space. Using persistence landscapes the elements originating from some homology groups on the filtration were estimated. With numerical experiments we predicted near ideal embedding dimensions and could confirm, according to Tab. \ref{figure3}, that such a neural embedding delivers a loss function on the validation data set with the smallest fluctuations and the best reconstruction results. We pose following open research questions:
 \begin{itemize}
-    \item We do not provide the neural layers with the explicit structure of an Abelian Lie group. How can the construction of spherical CNNs \cite{CohenGKW18} be used to always represent a product space $\mathbb{R}^p \times \mathbb{T}^q$ from layer to layer to generate exactly the porposed estimate of a manifold?
-    \item Our approach can be applied to any kind of manifold, as far as its minimal representation is known. By applying decompositions, the procedure can be generalized and extended to obtain more accurate estimates. What decomposition can we use if we do not require the manifolds to be connected?
+    \item The neural layers do not have the explicit structure of an Abelian Lie group. How can spherical CNNs \cite{CohenGKW18} be used to always represent a product space $\mathbb{R}^p \times \mathbb{T}^q$ from layer to layer in order to operate on the proposed Lie group?
+    \item This approach can be applied to any kind of manifold, as far as its minimal representation is known. Using decompositions, one may generalize this result. What decomposition allows to neglect the connectedness?
 \end{itemize}
 
 \bibliographystyle{splncs04}
