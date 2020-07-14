@@ -1,0 +1,227 @@
+% This is samplepaper.tex, a sample chapter demonstrating the
+% LLNCS macro package for Springer Computer Science proceedings;
+% Version 2.20 of 2017/10/04
+%
+\documentclass[runningheads,orivec]{llncs}
+
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{euler}
+\usepackage{amsmath,amssymb,amscd,amstext}
+\usepackage{xcolor}
+\usepackage{pst-node}
+\usepackage{tikz,pgf}
+\usepackage{tikz-cd} 
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\pgfplotsset{compat=newest}
+\usetikzlibrary{spy,decorations.markings,decorations.text,arrows.meta,bending,3d,shapes.arrows,positioning,fit,backgrounds,fadings}
+\let\clipbox\relax
+\usepackage{slashbox}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{adjustbox}
+\usepackage{setspace}
+\usepackage{xcolor}
+\usepackage{multibib}
+\usepackage{filecontents}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{mathtools}
+\usepackage{commath}
+\usepackage[percent]{overpic}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+    colorlinks,
+	citecolor=black,
+	filecolor=black,
+	linkcolor=black,
+	urlcolor=blue
+}
+\definecolor{red1}{RGB}{227,226,223}
+\definecolor{red2}{RGB}{227,175,188}
+\definecolor{red3}{RGB}{238,76,124}
+\definecolor{red4}{RGB}{154,23,80}
+\definecolor{red5}{RGB}{93,0,30}
+\makeatletter
+\newcommand{\@chapapp}{\relax}
+\newcommand{\xdashrightarrow}[2][]{\ext@arrow 0359\rightarrowfill@@{#1}{#2}}
+\newcommand{\xdashleftarrow}[2][]{\ext@arrow 3095\leftarrowfill@@{#1}{#2}}
+\newcommand{\xdashleftrightarrow}[2][]{\ext@arrow 3359\leftrightarrowfill@@{#1}{#2}}
+\def\rightarrowfill@@{\arrowfill@@\relax\relbar\rightarrow}
+\def\leftarrowfill@@{\arrowfill@@\leftarrow\relbar\relax}
+\def\leftrightarrowfill@@{\arrowfill@@\leftarrow\relbar\rightarrow}
+\def\arrowfill@@#1#2#3#4{%
+  $\m@th\thickmuskip0mu\medmuskip\thickmuskip\thinmuskip\thickmuskip
+   \relax#4#1
+   \xleaders\hbox{$#4#2$}\hfill
+   #3$%
+}
+\newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
+\makeatother
+\begin{document}
+%
+\title{Estimate of the Neural Network Dimension Using Algebraic Topology and Lie Theory\thanks{The code can be found at: \href{https://github.com/karhunenloeve/ neural-topology-lie}{https://github.com/karhunenloeve/neural-topology-lie}.}}
+%
+%\titlerunning{Abbreviated paper title}
+% If the paper title is too long for the running head, you can set
+% an abbreviated paper title here
+%
+\titlerunning{Estimate of the neural network Dimension}
+
+%
+% First names are abbreviated in the running head.
+% If there are more than two authors, 'et al.' is used.
+%
+%
+\maketitle              % typeset the header of the contribution
+%
+\begin{abstract}
+In this paper, we present an approach to determine the smallest possible number of neurons in a layer of a neural network in such a way that the topology of the input space can be learned sufficiently well. We introduce a general procedure based on persistent homology to investigate topological invariants of the manifold on which we suspect the data set. We specify the required dimensions precisely, assuming that there is a smooth manifold on or near which the data are located. Furthermore, we require that this space is connected and has a commutative group structure in the mathematical sense. These assumptions allow us to derive a decomposition of the underlying space whose topology is well known. We use the representatives of the $k$-dimensional homology groups from the persistence landscape to determine an integer dimension for this decomposition. This number is the dimension of the embedding that is capable of capturing the topology of the data manifold. We derive the theory and validate it experimentally on toy data sets. 
+
+\keywords{Embedding dimension \and Parameterization \and Persistent homology \and Neural Networks \and Manifold learning.}
+\end{abstract}
+
+\section{Introduction}
+Since the development of deep neural networks, their parameterization, in particular the smallest possible number of neurons in a layer, has been studied. This number is of importance for auto-encoding tasks that require extrapolation or interpolation of data, such as blind source separation or super-resolution. If this number is overestimated, unnecessary resources are consumed during training. If the number is too small, no sufficiently good estimate can be given. To solve this problem, we make the following contribution in this paper:
+\begin{itemize}
+    \item We study topological invariants using statistical summaries of persistent homology on a filtered simplicial complex on the data.
+    \item Using the theory of Lie groups, we specify the smallest possible embedding dimension so that the neural network is able to estimate a projection onto a space with the determined invariants.
+\end{itemize}
+
+\section{Related work}
+We present relevant work on neural networks from a differential geometric perspective. Further, we summarize earlier attempts to determine depth and width of a neural network, depending on the data to be processed.
+
+\subsubsection*{Differential geometry in neural networks} The manifold of a dense neural network is in most cases Euclidean. Nevertheless, it does often approximate a manifold with different structure. Recently there have been results in the direction of other manifolds on which neural networks can operate and that fit more the nature of data, such as the spherical neural networks \cite{CohenGKW18}. They operate on a model of a manifold with commutative group structure. Manifolds induce a notion of distance, with symmetric properties, also referred to as metric.
+
+A metric describes the geometric properties of a manifold. The change of coordinate systems and the learned metric tensor of a smooth manifold during backpropagation was formalized \cite{HauserR17}, which shows, that we operate often on a model of a Lie Group. Further, it has been shown that dense neural networks cannot approximate all functions arbitrarily precisely \cite{Johnson19}. Thereupon, neural networks with residual connections were investigated. Residual networks add the output of one layer to a deeper one, bypassing some of the layers in between. Indeed, they are universal function approximators \cite{LinJ18}. Inspired by finite difference methods, such a residual layer was defined as a forward or backward difference operator on a partition of layers. The state space dimension with residual connections is homeomorphic to $\mathbb{R}^{k \cdot n}$, where $n = \text{dim} \; M$ and $k$ is the number of times the difference operator was used \cite{HauserGJR19}. Such a layer is able to embed in $k\cdot n$ dimensional Euclidean space. The smooth manifold perspective inspired us to investigate its invariants leading into the theory discussed in this paper.
+
+\subsubsection*{Embedding dimension of neural networks} Cybenko showed that dense neural networks with one hidden layer can approximate any continuous function with a bounded domain with arbitrarily small error \cite{Cybenko92}. The upper bound of the embedding dimension for \texttt{ReLU} networks was recently determined to be $(n+4)$, where $n$ is the sample dimension \cite{RaghuPKGS17}. Bartlett et al. show an almost tight bound for VC dimensions. A neural network with $W$ weights and $L$ layers is bounded by $O(WL \log W)$ VC dimensions but has $\Omega(WL \log W/L)$ VC dimensions \cite{BartlettHLM19}. Its depth was determined as a parameter depending on the moduli of continuity of the function to be approximated \cite{LinJ18}. 
+
+To these fundamental results we contribute a topological approach to the parameterization of the minimal amount of neurons within a layer, such that the topology of the data manifold can be represented. Similar to Futagami et al.\cite{FutagamiYS19}, we investigate the manifold on which we suspect the data. Our approach is applicable to topological spaces in general and is based on persistent homology. We look for the dimension of a space with the same topological properties that the data indicates and which can be approximated. We assume a simple decomposition into a product space of realaxes and $1$-spheres to get the same homology groups as the persistent ones on a filtration of data. The dimension of the decomposition is a computable lower bound.
+
+\section{Smooth manifolds, Lie groups and persistent homology}
+The assumption that a set of points lies on a manifold is more accurate than the treatment in Euclidean space. A \emph{topological manifold} $M$ is a \emph{Hausdorff} space, which means that any two points $x,y \in M$ have always open neighborhoods $U_x,U_y \subset M$, so that their intersection is empty. This behaviour gives an intuitive feeling for the position of points in space. The topology $(M, \tau)$ is a set system that describes the structure of a geometric object. Here $M$ itself and the empty set $\emptyset$ must be contained in $\tau$, and any union of open sets from $\tau$ and any intersection of $\tau$ must be contained in $\tau$. If this set system has a subset which generates the topology $\tau$ with finitely many unions, then this subset is a \emph{basis} of the topology. We demand of a manifold that the basis is at most countable. In addition, $M$ is locally Euclidean, i.e. each point has a neighborhood which can be mapped homeomorphically to a subset of $\mathbb{R}^n$. The integer $n$ is the dimension of $M$. 
+
+\subsection{Smooth manifolds}
+A smooth structure is a stronger condition than a topological manifold which can be described by a family of continuous functions. This assumption is justified by the theorem of Stone-Weierstrass which proves that every continuous function can be approximated arbitrarily exactly by a smooth one \cite{stone1948generalized}. Smooth manifolds are described by a family of local coordinate maps $\varphi: U \rightarrow \varphi(U) \subseteq \mathbb{R}^n$ which are homeomorphic to a subset of $\mathbb{R}^{n}$ and cover an open neighborhood $(U_i,\varphi_i)$ in $M$. A family of charts, which covers $M$, is called \emph{atlas} on $M$ \cite{lee2013smooth}, i.e. $\mathscr{A} = (U_i,\varphi_i)_{i \in I}$. The functions $x_1, \cdots, x_n: U \rightarrow \mathbb{R}$ are called local coordinates $\varphi(p) = (x_1(p), \cdots, x_n(p))$. If the atlas is maximal in terms of inclusion, then it is a \emph{differentiable structure}. Each atlas for $M$ is included in a maximal atlas. Due to the differentiable structure, the maps in $\mathscr{A}$ are also compatible with all maps of $\mathscr{A}_{\text{max}}$. It is sufficient to use a non maximal atlas.
+
+As long as the activation functions are of the same differentiable structure, they also are compatible with each other, and the manifold does not change as the data propagates through the layers. Only the coordinate system changes.
+
+\subsubsection{Lie groups} The study of group theory deals with symmetries which can be expressed algebraically. A pair $(M,\circ)$, consisting of a map $\circ: M\times M \rightarrow M$ is called group if the map is associative, i.e. $x \circ (y \circ z) = (x \circ y) \circ z$ and has a neutral element so that $x \circ e_{M} = x$. We also require an inverse element to each element of the group, i.e. $x \circ x^{-1} = e_{M}$. A Lie group is a smooth manifold which is equipped with a group structure such that the maps $\circ: M \times  M \rightarrow  M, (x,y) \mapsto xy, $ and $\imath: M \rightarrow  M, x \mapsto x^{-1}$ are smooth. We call a space \emph{connected} if it cannot be divided into disjoint open neighbourhoods. A group is called Abelian or commutative when all elements under the group operation commute.
+
+We apply a theorem from Lie theory, which states that each connected Abelian Lie group $(M,\circ)$ of dimension $\dim M = n$ is isomorphic to a product space $\mathbb{R}^p \times \mathbb{T}^q$ with $p+q =n$, for a proof we refer to \cite[p.~116]{onishchik1993lie}. The $q$-torus $\mathbb{T}^q$ is a surface of revolution. It moves a curve around an axis of rotation. These axes are given by $1$-spheres, such that the $q$-torus is a product space $\mathbb{T}^q = \mathcal{S}^1_1 \times \cdots \times \mathcal{S}^1_q$. The initial decomposition of connected commutative Lie groups can be further simplified into $M \simeq \mathbb{R}^p \times \mathcal{S}^1_1 \times \cdots \times \mathcal{S}^1_q$. Recall, that the $(n-1)$-sphere is given by $\mathcal{S}^{n-1} := \{x \in \mathbb{R}^n \; \vert \; \norm{x}_2 = 1\}$. Thus, $\mathcal{S}^1$ can be embedded into $\mathbb{R}^2$. Next, we derive how many dimensions are at least needed for a suitable embedding. For each $1$-sphere we count two dimensions and for each real line accordingly one. Finally, we have to estimate from data how the decomposition may look like to yield the topology of the data manifold.
+
+\subsection{Persistent homology}
+Algebraic topology provides a computable tool to study not the topology of a set of points themselfs but an Abelian group attached to them. The core interest in this discipline lies in \emph{homotopy equivalences}, an equivalence class to which objects belong that are continuously deformable into one another. This is much broader than homeomorphism. For two topological spaces $X$ and $Y$ we seek for a function $h: X \times I \rightarrow Y$, which gives the identity at time $h_0(X) = X$ and for $h_1(X) = Y$ a mapping into another topological space. If this mapping is continuous with respect to its arguments, it is called \emph{homotopy}. Consider two functions $f,g: I \rightarrow X$ so that $f(1) = g(0)$. Then there is a \emph{composition} of product paths $f \cdot g$, which pass first through $f$ and then through $g$ and which is defined as $f \cdot g (s) = f(2s)$ for $0 \leq s \leq 1/2$ and $g(2s - 1)$, for $1/2 \leq s \leq 1$. We first run $f$ at double speed up to $1/2$ and from $1/2$ to $1$ we run the function $g$ at double speed. In addition, suppose that a family of functions $f: I \rightarrow X$ is given which have the same start and end point $f(0) = f(1) = x_0 \in X$. They intuitively form a \emph{loop}. The set of all homotopy classes $[f]$ of loops $f: I \rightarrow X$ at base point $x_0$ is noted as $\pi_1(X,x_0)$ and is called first homotopy group or fundamental group. The group operation is the product of equivalence classes $[f][g] = [f \cdot g]$. If we do not look at the interval $I$, but at mappings considering the unit cube $I^n$, we obtain the $n$-th homotopy group $\pi_n(X,x_0)$ by analogy. With the help of homotopy groups we study connected components of a topological space for the $0$th group, the loops for the $1$th group, the cavities for the $2$th and so forth. Since homotopy groups are difficult to compute, we resort to an algebraic variant, the \emph{homology groups}.
+
+\subsubsection{Simplices} In data analysis, we do not study the topological spaces themselves, but points that we assume are located on or near this space. However, all closed surfaces can be triangulated, i.e. completely covered with simplices. For a proof and illustrations we refer to \cite[p.~102]{hatcher2002algebraic}\cite{lume}. The concept of the triangle is too specific, so the \emph{$n$-simplices} are defined as a generalization. They are the smallest convex set in Euclidean space with $(n+1)$-points $v_0,\cdots,v_n$, having no solutions for any system of linear equations in $n$-variables. Thus, we say they lie in \emph{general position with respect to $\mathbb{R}^n$}, because they do not lie on any hyperplane with dimension less than $n$ \cite[p.~103]{hatcher2002algebraic}. We define the $n$-simplex as follows:
+\begin{equation}
+    \label{simplex}
+    [\sigma] = \left\{ [v_0,\cdots,v_n] \in \mathbb{R}^{n+1} \; \bigg\vert \; \sum_{i=0}^{n} v_i = 1 \; \text{and} \; v_i \geq 0 \; \text{for all} \; i \right\}.
+\end{equation}
+Removing a vertex from $[\sigma]$ results in a $(n-1)$-simplex called \emph{face} of $[\sigma]$. A $0$-simplex is a point, a $1$-simplex is a path between two $0$-simplices, a $2$-simplex is an area enclosed by three $1$-simplices and so on. So they follow the intuition and generalize triangles to polyhedra, including points by definition.
+
+\input{figure1.tex}
+\subsubsection{Simplicial complexes} A \emph{simplicial complex} $K$ is a set of simplices, such that any face of a simplex of $K$ is a simplex of $K$ and the intersection of any two simplices of $K$ is either empty or a common face of both \cite[p.~11]{boissonnat2018geometric}. We require every $(k+1)$-element, with $k < n$ to be a $k$-simplex of $[\sigma] \subset K$. This defines the simplicial complex as a topological space. Examples for simplicial complexes can be found in Fig. \ref{figure2} b). These properties ensure that simplices are added to the complex in a way, such that they are \emph{glued} edge to edge, point to point, and surface to surface. Thus, every $n$-simplex has $n+1$ distinct vertices and no other $n$-simplex has the same set of vertices. This is a unique combinatorial description of vertices together with a collection of sets $\{[\sigma]_1, \cdots, [\sigma]_m\}$ of $k$-simplices, which are $k+1$ element subsets of $K$ \cite[p.~107]{hatcher2002algebraic}. This set system can be realized geometrically with an injective map into Euclidean space.
+
+\subsubsection{Associated Abelian groups} Algebraically, the simplices can be realized as a system of linear combinations as $\sum_i \lambda_i [\sigma]_{i}$ following Eq. \ref{simplex}. Together with addition as an operation, they form a group structure called $k$-th chain group $\langle C_k, +\rangle$ for the corresponding dimension of the $k$-simplices used. The group is commutative or Abelian. The used coefficients $\lambda_i$ induce an orientation, intuitively a direction of the edges, by negative and positive signs, such that $[\sigma] = -[\tau]$, iff $[\sigma] \sim [\tau]$ and $[\sigma]$ and $[\tau]$ have different orientations. The objects of the chain group are called $k$-chains, for $[\sigma] \in C_k$. The groups are connected by a homomorphism, a mapping which respects the algebraic structure, the boundary operator: $\partial_k: C_k \rightarrow C_{k-1}$, $\partial_k [\sigma] \mapsto \sum_i (-1)^i [v_0,v_1,\cdots,\hat{v}_i, \cdots, v_n]$. The $i$th face is omitted, alternatingly. Using the boundary operator we yield the following sequence of Abelian groups, which is a chain complex cf. Fig. \ref{figure1} a):
+\begin{equation}
+    0 \xrightarrow[]{\partial_{k+1}} C_k \xrightarrow[]{\partial_{k}} C_{k-1} \xrightarrow[]{\partial_{k-1}} \cdots \xrightarrow[]{\partial_{2}} C_1 \xrightarrow[]{\partial_{1}} C_0 \xrightarrow[]{\partial_{0}} 0.
+\end{equation}
+
+For the calculation of homology groups we have to choose a field from which to obtain the coefficients $\lambda_i$. Since, according to the Universal Coefficient Theorem, all homology groups are completely determined by homology groups with integral coefficients, we choose coefficients in $\mathbb{Z}$, see the proof in \cite{gruenberg1968universal}.
+
+The $k$-th chain groups contain two more Abelian subgroups that behave normal to it. First, the so-called cycle groups $\langle Z_k, +\rangle$, which are defined as $Z_k := \ker \partial_k = \{[\sigma] \in C_k \; \vert \; \partial_k [\sigma] = \emptyset \}$. This follows the intuition of all elements that form a loop, i.e. have the same start and end point. Some of these loops have the peculiarity of being a boundary of a subcomplex. These elements form the boundary group $\langle B_k, +\rangle$, defined by $B_k := \text{im } \partial_{k+1} = \{[\sigma] \in C_k \; \vert \; \exists [\tau] \in C_{k+1}: [\sigma] = \partial_{k+1}[\tau]\}$. The connection of these groups is illustrated in Fig. \ref{figure1} a). Now we define the homology groups as quotients of groups. Homology -- analogous to homotopy theory -- gives information about connected components, loops and higher dimensional holes in the simplicial complex:
+\begin{equation}
+    H_k(K) := \frac{\ker \partial_k C_k(K)}{\text{im } \partial_{k+1} C_{k+1}(K)} = \frac{Z_k(K)}{B_k(K)}.
+\end{equation}
+
+\subsubsection{Homological persistence} Examining the homology groups of a set of points gives little information about the structure of a dataset. Instead, we are interested in a parametrization of the simplicial complex as geometric realization in which the homology groups appear and disappear again. For this purpose we consider all possible subcomplexes that form a \emph{filtration} over the point set $X$. We denote $K^{\epsilon} := K^{\epsilon}(X)$. Depending on how we vary the parameter $\epsilon_i$ of the chosen simplicial complex, the following sequence is generated, connected by inclusion:
+\begin{align}
+    \emptyset &= K^{\epsilon_0} \subset K^{\epsilon_1} \subset \cdots \subset K^{\epsilon_{n+1}}= K,\\
+    K^{\epsilon_{i+1}} &= K^{\epsilon_i} \cup [\sigma]^{\epsilon_{i+1}}, \quad \text{for} \; i \in \{0, \cdots, n-1\}.
+\end{align}
+An example of a filtration is given in Fig. \ref{figure1} b). The filtration has a discrete realization with a fixed $\epsilon = \epsilon_{i+1}-\epsilon_{i} = \min(x,y)$ for all $x,y \in X$. Through filtration we are able to investigate the homology groups during each step of the parameterization. We record when elements from a homology group appear and when they disappear again. Intuitively speaking, we can see when $k$-dimensional holes appear and disappear in the filtration. We call this process \emph{birth} and \emph{death} of topological features. Recording the \emph{Betti numbers} of the $k$-th homology group along the filtration, we obtain the \emph{$k$-dimensional persistence diagram}, see Fig. \ref{figure1} c)3. The Betti numbers $\beta_k$ are defined by $\text{rank } H_k$. We write $H^{\epsilon_i}_k$ as $k$-th homology group on the simplicial complex $K$ with parametrization $\epsilon_i$. Then $H^{\epsilon_{i}}_{k} \rightarrow H^{\epsilon_{i+1}}_k$ induces a sequence of homomorphisms on the filtration, for a proof we refer to \cite{edelsbrunner2008persistent}:
+\begin{align}
+0 = H^{\epsilon_{0}}_k \rightarrow H^{\epsilon_{1}}_k \rightarrow \cdots \rightarrow H^{\epsilon_{n}}_k \rightarrow H^{\epsilon_{n+1}}_k = 0.
+\end{align}
+The image of each homomorphism consists of all $k$-dimensional homology classes which are born in $K^{\epsilon_i}$ or appear before and die after spanning $K^{\epsilon_{i+1}}$. Tracking the Betti numbers on the filtration results into a multiplicity
+\begin{equation}
+\mu^{\epsilon_{i},\epsilon_{j}}_k = (\beta_k^{\epsilon_{i},\epsilon_{j-1}} - \beta_k^{\epsilon_i,\epsilon_{j}})-(\beta_k^{\epsilon_{i-1},\epsilon_{j-1}}-\beta_k^{\epsilon_{i-1},\epsilon_{j}}),
+\end{equation}
+for the $k$-th homology group and index pairs $(\epsilon_i,\epsilon_{j+1}) \in \overline{\mathbb{R}^2} := \mathbb{R}^2 \cup \{-\infty,\infty\}$ with indices $i \leq j$. The Euclidean space is extended, as the very first connected component on the filtration remains connected. Thus, we assign to it infinite persistence, corresponding to the second coordinate $\epsilon_{j+1}$. The first term counts elements born in $K^{\epsilon_{j-1}}$ and which vanish entering $K^{\epsilon_{j}}$, while the second term counts the representatives of homology classes before $K^{\epsilon_{j}}$ and which vanish at $K^{\epsilon_{j}}$. The $k$-th persistence diagram is then defined as
+\begin{equation}
+\text{Ph}_{k}(X) := \left\{(\epsilon_i, \epsilon_{j+1}) \in \overline{\mathbb{R}^2} \; \bigg\vert \; \mu^{\epsilon_{i},\epsilon_{j+1}}_k = 1 \; \text{for all} \; i,j \in I \right\}.
+\end{equation}
+
+\subsubsection{Persistence landscapes} Persistence landscapes give a statistical summary of the topology of a set of points embedded in a given topological manifold \cite{bubenik2015statistical}. Looking at the points $(\epsilon_i,\epsilon_{j+1}) \in \overline{\mathbb{R}^2}$ on the $k$-th persistence diagram $\text{Ph}_{k}(X)$, one associates a piecewise linear function $\lambda^{\epsilon_i}_{\epsilon_{j+1}}: \mathbb{R} \rightarrow [0,\infty)$ with those points:
+\begin{align}
+    &\text{If } x \not\in (\epsilon_i,\epsilon_{j+1}), \; \lambda^{\epsilon_i}_{\epsilon_{j+1}}(x) = 0,\\
+    &\text{if } x \in \left(\epsilon_{i},(\epsilon_i + \epsilon_{j+1})/2 \right], \; \lambda^{\epsilon_i}_{\epsilon_{j+1}}(x) = x - \epsilon_{i} \; \text{and}\\
+    &\text{if } x \in \left((\epsilon_i + \epsilon_{j+1})/2,\epsilon_{j+1} \right), \; \lambda^{\epsilon_i}_{\epsilon_{j+1}}(x) = \epsilon_{j+1} - x.
+\end{align}
+The summaries for the general persistence diagram are the disjoint union of the $k$-th persistence diagrams $\text{Ph}(X) := \coprod_{i=0}^{k} \text{Ph}_i(X)$. A persistence landscape $\text{Pl}(X)$, contains the birth-death pairs $(\epsilon_i,\epsilon_{j+1})$, for an $i,j \in \{1, \cdots, n\}$ and is the function sequence $\Lambda_k : \mathbb{R} \rightarrow [0,\infty)$ for a $k \in \mathbb{N}$, where $\Lambda_k(x)$ denotes the $k$-th greatest value of $\lambda^{\epsilon_i}_{\epsilon_{j+1}}(x)$, see Fig. \ref{figure1} c)4. Thus, $\Lambda_k(x) = 0$ if $k > n$. $\text{Pl}(X)$ lies in a completely normed vector space, suited for statistical computations.
+
+
+\section{Neural Networks}
+\label{sec:neuralnets}
+Neural networks are a composition of \emph{affine transformations} with a non-linear activation function. This transformation obtains collinearity. It also preserves parallelism and partial relationships. The projection onto the $(l+1)$-th layer of such a net can be formalized as $\textbf{x}^{(l+1)} = f(\mathbf{W}^{(l+1)} \cdot \textbf{x}^{(l)}+\textbf{b}^{(l+1)}).$ The composition of multiple such maps is a deep neural network.
+
+The linear map $\textbf{x} \mapsto \mathbf{W} \textbf{x}$ and the statistical distortion term $\textbf{x} \mapsto \textbf{x}+\textbf{b}$ are determined by stochastic gradient descent.  Note, that the linear transformation $\textbf{x} \mapsto \mathbf{W} \cdot \textbf{x}$ can be interpreted as the product of a matrix $\mathbf{W}_{ij} = \mathbf{\delta}_{ij}\mathbf{W}_i$ with the input vector $\textbf{x}$ using the Kronecker-$\delta$, while $(\cdot)$ denotes elementwise multiplication. Commonly used are functions from the exponential family. As a result a neural network is a map $\varphi^{(l)}:\textbf{x}^{(l)}(M)$ $\rightarrow$ $(\varphi^{(l)} \circ \textbf{x}^{(l)})(M)$. Learning by back propagation can in this way be considered as a change of coordinate charts of a smooth manifold. For a detailed formulation of back propagation as a shift on the tangent bundle of this manifold we refer to Hauser et al. \cite{HauserR17}.
+
+In practice, neural networks are used with a different number of neurons per layer. However, a layer can represent the manifold of the previous one. Manifolds can always be immersed and submersed as long as the rank of the Jacobian of the respective map does not change. Thus, the dimension of the data manifold is equal to the width of the smallest possible layer of a neural network that is able to represent it \cite{HauserR17}. In other words, the layer with minimal width which does not loose information about the topological structure.
+
+\section{Counting Betti numbers}
+According to our main assumption, we seek a decomposition of the data manifold into a product of realaxes and tori. We refer to this Lie group as $G \simeq \mathbb{R}^p \times \mathbb{T}^q$. Thus, there is also an isomorphism of the homology groups of $G$ with those of $\mathbb{R}^p \times \mathbb{T}^q$, so that $H_k(G) \simeq H_k(\mathbb{R}^p \times \mathcal{S}^{1}_{1}\times\cdots\times\mathcal{S}^{1}_{q})$ with $p+q = \dim G$. We demand from a neural network that these homology groups can all be approximated, i.e. that all topological structure of the input space can be represented sufficiently well, by means of its topological invariants.
+
+Using Künneth's theorem, we know that the $k$-th singular homology group of a topological product space is isomorphic to the direct sum of the tensor product of $k$-th homology groups from its factors, for a proof we refer to \cite[p.~268]{hatcher2002algebraic}:
+\begin{align}
+    H_k(X \times Y) \simeq \bigoplus_{i+j=k}H_i(X) \otimes H_j(Y).
+\end{align}
+This applies to all fields, since modules over a field are always free. If we apply the theorem to the decomposition, we get for the space we are looking for
+\begin{align}
+    \label{homologykunneth}
+    &H_k(\mathcal{S}^{1}_{1}\times\cdots\times \mathcal{S}^{1}_{q}\times\mathbb{R}^p) \simeq \\
+    \bigoplus_{i_{1} + \cdots + i_{r}=k} &H_{i_{1}}(\mathcal{S}^{1}_{1}) \otimes \cdots \otimes H_{i_{\hat{r}}}(\mathcal{S}^{1}_{q}) \otimes H_{i_{r}}(\mathbb{R}^{p}).
+\end{align}
+One might wonder to what extent homology groups of a simplicial complex can be used to estimate homology groups of smooth manifolds. Through construction of continuous maps from a simplex into a topological space, so-called singular simplices, the singular homology groups $H_{k}(X)$ are obtained. We refer to Hatcher \cite[p.~102]{hatcher2002algebraic} for a proof. This allows to assign Abelian groups to any topological space. If one constructs smooth mappings instead of continuous ones, one gets smooth singular homology groups $H^{\infty}_{k}(X)$, consider \cite[pp.~473]{lee2013smooth} for a proof. Finally a chain complex can be formed on a smooth manifold over the $p$-forms on $X$ and from this the so-called De Rham cohomology can be defined $H_{\text{dR}}^{k}(X)$, for a proof we refer to \cite[pp.~440]{lee2013smooth}. In summary, we have homology theories for simplicial complexes, topological spaces and on smooth manifolds. Simplicial homology is determined by a simplicial complex, which is merely a rough approximation of the triangulation of the underlying topological space. However, we can draw conclusions about a possible smooth manifold, since the discussed homology groups all have isomorphisms to each other known as the De Rham Theorem, see \cite[pp.~106, pp.~467]{hatcher2002algebraic,lee2013smooth}. By the isomorphism of simplicial, singular, smooth singular and De Rham cohomology, our approach is legitimized.
+
+We count the representatives of homology classes in the persistence landscapes to derive the dimension of the sought manifold. We get for $\mathcal{S}^1$:
+\begin{align}
+    H_0(\mathcal{S}^1) &= H_1(\mathcal{S}^1) = \mathbb{Z},\\
+    H_i(\mathcal{S}^1) &= 0, \; \text{for all } i \geq 2.
+\end{align}
+Note, in Eq. \ref{homologykunneth} terms remain only for indices $i_{j} \in \{0,1\}$. Thus, we get
+\begin{align}
+    H_0(\mathbb{R}^p) &\simeq\mathbb{Z}^{p},\\
+    \label{determineq}
+    H_k(\mathbb{T}^{q}) &\simeq H_k(\mathcal{S}^{1}_{1} \times \cdots \times \mathcal{S}^{1}_{q}) \simeq \mathbb{Z}^{{q\choose{k}}},
+\end{align}
+where $p$ indicates the number of connected components. The number of local maxima for a homology group in the persistence landscape is the cardinality of the set of points $(\epsilon_i,\epsilon_{j+1})$ with derivatives $d\lambda^{\epsilon_i}_{\epsilon_{j+1}}(x) = 0 \; \text{and} \; d^2 \lambda^{\epsilon_i}_{\epsilon_{j+1}}(x) < 0$, for an example of these maximum values within a persistence landscape see Fig. \ref{figure2} b) c). Also, it is the solution for the binomial coefficient:
+\begin{align}
+     {q \choose k} = \frac{q}{1} \cdot \frac{q-1}{2} \cdots \frac{q-(k-1)}{k} = \prod_{i=1}^{k} \frac{q+1-i}{i}.
+\end{align} 
+We count in $PL(X)$ the elements of the $0$th homology group. The amount of elements from higher homology groups correspond to $q$ (Eq. \ref{determineq}) and are computed using Monte-Carlo methods for an (approximate) integer solution, see Tab. \ref{figure3}.
+
+\section{Experimental setting}
+\input{figure2.tex}
+We train an auto-encoder using as input heavily noisy images and map them to their noiseless original. We perturb each input vector $\textbf{x}^{(0)}$ with Gaussian noise $\epsilon \sim \mathcal{N}(0,\sigma^2 \mathbf{I})$, such that the input is weighted $0.5 \cdot \textbf{x}^{(0)} + 0.5 \cdot \epsilon$. The layer size is increased for each experiment by $2$, i.e. $2,4,6, \cdots, 784$. $392$ neural networks around a hundred times. Each line of Fig. \ref{figure2} c), d) represents one neural architecture as averaged loss function.\\[0.4cm]
+\textbf{Persistence Landscapes:} We use the Delaunay-complex for the filtration, according to Melodia et al. \cite{lume}. The maximum $\alpha$-square is set to $e^{12}$. The maximal expansion dimension of the simplicial complex is set to $10$. The maximal edge length is set to $0.1$. The persistent landscapes are smoothened by a Gaussian filter $G(x) = 1 / \sqrt{2 \pi \sigma^2} \cdot e^{- x^2 / 2 \sigma^2}$ with $\sigma = 2$ for visualization purposes. We implement the persistence diagrams and persistence landscapes using the \texttt{GUDHI} library \cite{gudhi:urm}. Persistent homology is computed on a \texttt{NVIDIA Quadro P4000}.\\[0.4cm]
+\textbf{Neural networks:} We use $\text{L}(\textbf{x}^{(0)}, \textbf{y}) = 1/n \sum_{i=1}^{n} (\textbf{x}^{(0)}_i-\textbf{y}_i)^2$ as loss function. The sigmoid activation function $\sigma(\mathbf{x}^{(l)}) = 1 / 1 + e^{-\mathbf{x}^{(l)}}$ is applied throughout the net to yield the structure of a smooth manifold. Dense neural networks are used with bias term. The datasets are flattened from $(32,32,3)$ into $(3072)$ for the purpose of fitting into a dense layer. The first layer is applied to the flattened dataset, which is also adapted by back propagation, i.e. $\varphi^{(0)}(x^{(0)}) =$ $\sigma(\sum_{i=1}^{n} \textbf{W}_{ji}^{(1)} \textbf{x}_{i}^{(0)} + \textbf{b}_{i}^{(1)})$. It transfers the data to the desired embedding dimension. The subsequent layers are implemented as residual invertible layers following Dinh et al. \cite{DinhSB17}. We use invertible architectures to stay on the same differentiable structure during learning. A total of $5$ hidden layers are used, all with the same embedding dimension. The batch size is set to $128$, which should help to better recognize good parametrization. Higher batch size causes explosions of the gradient, which we visualize in Fig. \ref{figure2} c), d). For optimization we use \texttt{ADAM} \cite{KingmaB14} and a learning rate of $10^{-4}$. The dataset is randomly shuffled. We implement in \texttt{Python} $3.7$. We use \texttt{Tensorflow v.2.2.0} as backend \cite{tensorflow2015-whitepaper} with \texttt{Keras} as wrapper \cite{chollet2015keras}. The training is conducted on \texttt{Intel Core i}$7$ $9700$\texttt{K} processors.\\[0.4cm]
+\textbf{Results:} In Fig. \ref{figure2} c) d) we colored the neural networks according to the chosen embedding, such that the lines show the following dimensions ${\color{red1}\bullet} = [2, \cdots, 148]$, ${\color{red2}\bullet} = [150, \cdots, 198]$, ${\color{red3}\bullet} = [200, \cdots, 292]$ and ${\color{red4}\bullet} = [\dim U \approx 294, \cdots, 784]$.  The embedding dimension can be taken from Tab. \ref{figure3}.\footnote{Due to the construction of invertibility the treshold must be doubled, see \cite{DinhSB17}.} All models below our dimensional treshold $\dim U$ show drastic explosions of the gradient, see Fig. \ref{figure2} c) d). The models above the treshold remain stable. A single net still shows an explosive gradient colored ${\color{red4}\bullet}$ in Fig. \ref{figure2} d). The net showing the deflection of gradient is very close to our threshold, identified as $292$ dimensional embedding. The closer we come to the treshold, the sparser the fluctuations of loss.
+\input{figure3.tex}
+
+\section{Conclusion}
+Based on the theory of Lie groups and persistent homology a method for neural networks has been developed to parameterize them using the assumption that the data lies on or near by some connected commutative Lie group. This forms an approximate solution for a special case of learning problems. 
+
+Applying Künneth's theorem, the homology groups of the topological factor spaces could be connected with the ones of their product space. Using persistence landscapes the elements originating from some homology groups on the filtration were estimated. With numerical experiments we predicted near ideal embedding dimensions and could confirm, see Fig. \ref{figure2}, that a neural embedding above the treshold delivers a loss function on the validation data set with small fluctuations and best reconstruction results. We pose following open research questions:
+\begin{itemize}
+    \item The neural layers do not have the explicit structure of an Abelian Lie group. How can spherical CNNs \cite{CohenGKW18} be used to always represent a product space $\mathbb{R}^p \times \mathbb{T}^q$ from layer to layer in order to operate on the proposed Lie group?
+    \item This approach can be applied to any kind of manifold, as far as its minimal representation is known. Using decompositions, one may generalize this result. What decomposition allows to neglect the connectedness? For example, the persistence diagrams could be used to identify connected components. These in return could be represented as independent connected manifolds.
+    \item What do other representations of manifolds with a more complicated structure look like? For example, can manifolds like the Klein bottle be learned that are not orientable? And if so, how can one decide in advance whether or not the approximation to an orientable manifold makes more sense than to a non orientable one?
+\end{itemize}
+
+\bibliographystyle{splncs04}
+\bibliography{biblio}
+\end{document}
