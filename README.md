@@ -1,4 +1,10 @@
 # Estimate of the Neural Net Dimension Using Algebraic Topology and Lie Theory
+[![License](https://img.shields.io/:license-mit-blue.svg)](https://badges.mit-license.org)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/python/black)
+
++ [This is the link to the arxiv article.](https://arxiv.org/abs/2004.02881)
++ [This is the link to slides for the talk given at the IMTA-7.](https://karhunenloeve.github.io/NTPOL/main.pdf)
+
 In this paper we present an approach to determine the smallest possible number of perceptrons in a neural net in such a way that the topology of the input space can be learned sufficiently well. We introduce a general procedure based on persistent homology to investigate topological invariants of the manifold on which we suspect the data set. We specify the required dimensions precisely, assuming that there is a smooth manifold on or near which the data are located. Furthermore, we require that this space is connected and has a commutative group structure in the mathematical sense. These assumptions allow us to derive a decomposition of the underlying space whose topology is well known. We use the representatives of the *k*-dimensional homology groups from the persistence landscape to determine an integer dimension for this decomposition. This number is the dimension of the embedding that is capable of capturing the topology of the data manifold. We derive the theory and validate it experimentally on toy data sets. 
 
 **Keywords**: Embedding Dimension, Parameterization, Persistent Homology, Neural Networks and Manifold Learning.
