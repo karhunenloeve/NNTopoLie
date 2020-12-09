@@ -1,4 +1,4 @@
-# Estimate of the Neural Net Dimension Using Algebraic Topology and Lie Theory
+# Estimate of the Neural Network Dimension Using Algebraic Topology and Lie Theory
 [![License](https://img.shields.io/:license-mit-blue.svg)](https://badges.mit-license.org)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/python/black)
 
