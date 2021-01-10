@@ -68,10 +68,17 @@ Homology theories are largely isomorphic, and in a fairly precise way. For a tri
 At this point we are somewhat imprecise, even in the calculations, since this theorem applies to the field of real numbers, but is much more complicated for fields of positive characteristic. However, for the calculations we use fields of positive characteristic, even the simplest one, for arithmetic reasons. We are currently trying to generate a measurable quantity for the generated error through empirical experiments with persistent homology on fields of bodies with different characteristics.
 
 # Persistent homology
+Let us revisit persistent homology to make clear what we are measuring on the filtration. To do this, we consider the persistence module, a family of F-vector spaces for a field F body, this time arbitrary, and for real numbers i and j, such that there are F-linear mappings between the vector spaces Vi and Vj. These are called structure maps. For every pair i less than or equal to j, there is a k less than or equal to i less than or equal to j, so that compositing a map from Vk to Vi with a map from Vi to Vj yields the desired map from Vk to Vj.
+If we consider an ordered set of simplicial complexes, ordered by increasing parameter, with the simplicial maps fij from the ith to the jth simplicial complex such that again i is less than or equal to j, then we also get a k less than or equal to i less than or equal to j and hence also a map by composition from the kth to the jth simplicial complex. The persistence module is given by the different homology groups of the ith simplicial complexes and the corresponding structure maps.
+The persistence diagram shows the Betti numbers of the kth homology group during the filtration step i, so it is a diagram, a discrete finite subset of the one-parameter family that forms the persistence module.
 
 # Persistent landscapes
+Persistence landscapes are a functional representation of the aforementioned persistence diagrams, which are stable. They have been invented by Peter Bubenik and got a lot of attention in the topological data analysis community. The functional representation of a persistence diagram lies in a Banach space. One can think of them as a function, or equivalently as a sequence of functions for the kth homology groups.
+We transform the persistence diagram into another coordinate system and look at the two lines x minus the birth component and the death component minus x. Now we look at the kth largest value of the expression min(x-bi,di-x) which gives lambda 1, the darkest yellow function, lambda 2, the dashed slightly lighter function and lambda 3, the lightest almost invisible function.
 
 # Commutative abelian Lie groups
+Wir erinnern und zurück an unsere Annahme, sodass wir die Homologiegruppe der Datenmannigfaltigkeit in der kten Dimension betrachten als Homologiegruppe eines Produktraums von Hyperebenen und Tori, deren Dimension in der Summe die Dimension unserer Datenmannigfaltigkeit ergibt. Diese Dimension möchten wir inferieren. Wenn wir die Dimension gut wählen, können wir die Struktur der Daten auch gut abschätzen. Über den Satz von Künneth lernen wir, wie wir die Homologiegruppen in den Persistenzdiagrammen zählen müssen.
+Es verhält sich so: die kte Homologiegruppe des Produkts zweier topologischer Räume ist isomorph zur direkten Summe aller Faktoren, deren Indexsumme k ergibt. Die Faktoren selbst sind die Tensorprodukte der iten mit der jten Homologiegruppe der individuellen Faktorräume.
 
 # Computing dimensions
 
