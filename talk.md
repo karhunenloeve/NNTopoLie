@@ -3,15 +3,7 @@ My name is Luciano Melodia and I work at the Chair of Computer Science 6, a data
 I had to realize that there is a rigorous theory for very few settings that can be made for training neural networks. In this paper, I would like to present a solution for a particular special case. The special case relates to the parameterization of the neural network for data that is structured in a very specific way. We have tried experimentally to apply this special case to arbitrary data, with some success.
 
 # Overview
-First, we will motivate our problem. Our work is based on the hypothesis that data lie in principle on a topological space that would ideally describe all possible actual data points. We give the topological space some more structure, since this still allows us to approximate the data space with arbitrary error. This is our data manifold.
-
-We note that a neural network can also be described by a smooth manifold, where the coordinate functions are constructed by the weights and activation functions when chosen as a model of a smooth function. Often this manifold is chosen to be isomorphic to Euclidean space. It operates on the data manifold. We call it a neuromanifold.
-
-The tool to describe the shape of the topological space we are looking for is an algebraic one, homology. For this we need a corresponding structure on a topological space, a triangulation. Within this triangulation, we look for loops. If we have enough good points from our topological space, then we can span such a structure over the points. The result is a simplicial complex. However, to ensure that the features we find are not artifacts, we examine the one-parameter family of the simplicial complex for homology. The final result is persistent homology, which indicates how long the representatives of the corresponding homology classes survive when the filtration parameter is changing.
-
-We count the kth Betti numbers from a summary statistic of the persistence diagrams and use an assumption from Lie theory that the manifold should be a Lie group. Using a stronger constraint, namely that of connectedness, we are able to relate the homology groups directly to the dimension of such a manifold. This condition is also the main restriction for the general case, since it is not clear whether the data lie on a single manifold at all, or on several different ones.
-
-I therefore conclude the talk with an outlook on how this work can be used for more general cases in the future, which special cases are also worth investigating, and in which particular case our theory has direct practical application.
+...
 
 # Manifolds and Lie groups
 What is a manifold and what is meant by a Lie group? First we define a topological space X which is Hausdorff and has a countable basis (this is the second countability axiom). Now we want to make sure that the local neighborhoods are homeomorphic to the Euclidean n-dimensional space. This is also called locally Euclidean. Moreover, the coordinate functions that provide this homeomorphism should be smooth and compatible with each other, so that the reciprocal concatenations yield smooth functions again, with smooth inverses. Then one can exchange the coordinate maps and also cover the regions where the coordinate maps intersect. The collection of smooth coordinate maps that completely describe the manifold is called an atlas. The dimension of the manifold is given by the dimension of the Euclidean space to which the maps lead.
@@ -49,7 +41,7 @@ The coefficients for the simplices can be chosen from either a field or a ring. 
 
 # Definition of a simplicial complex
 A simplicial complex, let us call it K for example, is a finite union of simplexes which are expected to satisfy certain conditions. For example, every face of a simplex that lies in a simplicial complex must also be part of the simplicial complex. And nonempty intersections of two simplexes in K should in turn be faces of both.
-On the left side we see a valid simplicial complex. On the right side in red a counterexample. Here we violate the second condition, because the sides of two 2-simplices are somehow displaced and a 1-simplice lies inside two 2-simplices.
+On the left side we see a valid simplicial complex. On the right side in red a counterexample. Here we violate the second condition, because the sides of two 2-simplices are somehow displaced and a 1-simplex lies inside two 2-simplices.
 
 # 1. Filtered simplicial complexes
 It would be extremely difficult for us to decide for which parameter we should span a simplicial complex to reconstruct the structure of the topological space underlying the data. Furthermore, the set of points may well not represent every part of the space equally. Therefore, we consider the entire one-parameter family, or a finite part of it, which we call filtration. This is a nested sequence of simplicial complexes together with the inclusion map.
