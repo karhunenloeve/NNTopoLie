@@ -77,8 +77,8 @@ Persistence landscapes are a functional representation of the aforementioned per
 We transform the persistence diagram into another coordinate system and look at the two lines x minus the birth component and the death component minus x. Now we look at the kth largest value of the expression min(x-bi,di-x) which gives lambda 1, the darkest yellow function, lambda 2, the dashed slightly lighter function and lambda 3, the lightest almost invisible function.
 
 # Commutative abelian Lie groups
-Wir erinnern und zurück an unsere Annahme, sodass wir die Homologiegruppe der Datenmannigfaltigkeit in der kten Dimension betrachten als Homologiegruppe eines Produktraums von Hyperebenen und Tori, deren Dimension in der Summe die Dimension unserer Datenmannigfaltigkeit ergibt. Diese Dimension möchten wir inferieren. Wenn wir die Dimension gut wählen, können wir die Struktur der Daten auch gut abschätzen. Über den Satz von Künneth lernen wir, wie wir die Homologiegruppen in den Persistenzdiagrammen zählen müssen.
-Es verhält sich so: die kte Homologiegruppe des Produkts zweier topologischer Räume ist isomorph zur direkten Summe aller Faktoren, deren Indexsumme k ergibt. Die Faktoren selbst sind die Tensorprodukte der iten mit der jten Homologiegruppe der individuellen Faktorräume.
+We recall and back to our assumption so that we consider the homology group of the data manifold in kth dimension as the homology group of a product space of hyperplanes and tori whose dimension in sum gives the dimension of our data manifold. We would like to infer this dimension. If we choose the dimension well, we can also estimate the structure of the data well. Via Künneth's theorem we learn how to count the homology groups in the persistence diagrams.
+It behaves like this: the kth homology group of the product of two topological spaces is isomorphic to the direct sum of all factors whose index sum is k. The factors themselves are the tensor products of the ith with the jth homology group of the individual factor spaces.
 
 # Computing dimensions
 
