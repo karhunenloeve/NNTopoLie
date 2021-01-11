@@ -1,10 +1,10 @@
 # Welcome to my presentation "Homological Inference of Embedding Dimensions in Neural Networks"
-My name ist Luciano Melodia and I work at the chair of computer science 6 at the Friedrich-Alexander University in Erlangen. I realized that there is few theory for parameter choice of neural networks. In this paper I would like to present a solution for a particular special case.
+My name ist Luciano Melodia and I work at the chair of computer science 6 at the Friedrich-Alexander University in Erlangen. Efforts for neural network parameterization theories have recently increased. In this paper I would like to present a solution for a particular special case.
 
 # Manifolds and Lie groups
 First, we define smooth manifolds, as topological space X which is Hausdorff and has a countable basis. Moreover, the coordinate functions are homeomorphic to Euclidean n-space and should be smooth and compatible with each other. The dimension of the manifold is given by the dimension of the Euclidean space into which the maps lead.
 
-If the manifold has such a group structure that an operation of elements is smooth and has a smooth inverse, it is called a Lie group (after Sophus Lie).
+If the manifold has a group structure such that an operation of group elements is smooth and has a smooth inverse, it is called a Lie group (after Sophus Lie).
 
 # 1. The manifold of the data
 Our assumption states that a set of points lies on a (smooth) manifold, with possibly much smaller dimension than the data set suggests.
@@ -14,7 +14,7 @@ Our assumption of a connected Lie group allows us to decompose this space into s
 # 2. The manifold of the data
 In this example, we see six points. What manifold can we assume? We span a simplicial complex by choosing a parameter r and connecting all points whose Euclidean distance is less than this r with a 1-simplex. If there are more than two points closer than a given r, we form a 2-simplex for three points, a 3-simplex for 4 points, and so on. We see that for a step size of 0.2, a circle is created for two over a total of five filtration steps.
 
-So our idea is to estimate the topological structure in this way. We relate the invariants we use to infer the data manifold to its dimension.
+So our idea is to estimate the topological structure in this way. We relate the invariants we use to infer the data manifolds dimension.
 
 # The manifold of a neural network.
 Choosing the weights and the corresponding activation functions, a parameterization of certain coordinate maps is chosen, which can change during forward propagation. 
@@ -30,14 +30,10 @@ Third, we infere possible manifolds from these invariants.
 Forth, we relate the invariants to the manifolds and infere the embedding dimensions.
 And last but not least, we seek for approximate solutions if our assumption seems to fail.
 
-# Isomorphism of homology theories
-Homology theories are largely isomorphic, and in a fairly precise way. For a smooth manifold X and a simplicial complex K, it holds for certain fields that the simplicial homology is isomorphic to singular homology. The singular homology is defined over continuous maps, which can also be chosen to be smooth. From this, a theory on smooth homology can be developed which is isomorphic to its singular counterpart. The De-Rham theorem provides an isomorphism of the chain complex of p-differential forms of a smooth manifold to its singular cohomology with real coefficients. For the latter, then, the isomorphisms discussed also hold.
-At this point we are somewhat imprecise, even in the calculations, since this theorem applies to the field of real numbers, but is much more complicated for fields of positive characteristic. However, for the calculations we use fields of positive characteristic. We are currently trying to generate a measurable quantity for the generated error through empirical experiments with persistent homology and torsion.
-
 # Persistent homology
 We consider the persistence module, a family of F-vector spaces for a field F and for real numbers i and j, such that there are F-linear maps between the vector spaces Vi and Vj.
 We also consider an ordered set of simplicial complexes, ordered by increasing parameter, with the simplicial maps fij from the ith to the jth simplicial complex. The persistence module is given by the different homology groups of the ith simplicial complexes and the corresponding structure maps.
-The persistence diagram shows the Betti numbers of the kth homology group during the filtration step i, so it is a diagram, a discrete finite subset of the one-parameter family that forms the persistence module.
+The persistence diagram shows the Betti numbers of the kth homology group during the filtration step i, so it is a discrete finite subset of the one-parameter family that forms the persistence module.
 
 # Persistent landscapes
 Persistence landscapes are a functional representation of the aforementioned persistence diagrams, which are stable. They have been invented by Peter Bubenik and got a lot of attention in the topological data analysis community. The functional representation of a persistence diagram lies in a Banach space. One can think of them as a function, or equivalently as a sequence of functions for the kth Betti numbers.
@@ -61,7 +57,7 @@ The homology groups of a torus have a certain symmetry. A one point space has th
 But there is a sufficiently good way to use this theory in a general setting. We seek for an n-torus with as large as possible n and consider which representants of the respective homology group can be represented by it and subtract the respective betti numbers from the measured ones. Then, for the remaining representants, we again choose a k-torus, with k as large as possible, and try to cover as many representants as possible with it. We subtract all representants which are also contained in this k-torus and continue until all representants can be covered. Since we obviously do not have a torus, this integer equation according to Künneth does not work out and we get a certain surplus. On the right hand side we see the dimensions we would need to embed tori with the kth homology groups in a given real space. Since the integer equation does not exactly add up, we have written down the smallest and largest possibilities for embedding.
 
 # Losses on cifar10 & cifar100
-We trained autoencoders for both datasets, cifar10 and cifar100, by adding noise to the images and mapping them to the noise-free originals. For our experiment, we use invertible neural networks to model the differentiable structure as the same from layer to layer. Due to the structure of the neural network, which makes the upper right triangular matrix trivially invertible with the lower left triangular matrix of a square matrix, we need to double the embedding dimension. For cifar10 our estimation is extremely good, that neural network learns the denoising without large explosions of the gradient and in the best possible way starting from 272 neurons in the hidden layer. The situation is somewhat worse, but only marginally, for cifar100, where we also succeed in this delimitation well, except for individual parameterizations. These are just above our determined threshold. We attribute them to noise, since the persistence landscapes were not measured on the noisy but on the original images. Of course, the noise is also on a topological space that is quite different from the data.
+We trained autoencoders for both datasets, cifar10 and cifar100, by adding noise to the images and mapping them to the noise-free originals. For our experiment, we use invertible neural networks to model the differentiable structure as the same from layer to layer. Due to the structure of the neural network, which makes the upper right triangular matrix trivially invertible with the lower left triangular matrix of a square matrix, we need to double the embedding dimension. For cifar10 our estimation is extremely good, that neural network learns the denoising without large explosions of the gradient and in the best possible way starting from 272 neurons in the hidden layer. The situation is somewhat worse, but only marginally, for cifar100, where we also succeed in this delimitation well, except for individual parameterizations. These are just above our determined threshold. We attribute them to noise, since the persistence landscapes were not measured on the noisy but on the original images. Of course, the noise is also on a topological space that is quite different from the datamanifold.
 
 # Outlook
 After all, I promised that there is a broader application for this theory, which we are already working on and which will also come into practical use in the further course of our work, namely that of time series. The so-called sliding window embedding, which I'm sure many of you are familiar with, has been studied by Jose Perea for its mathematical properties. Here, the time series are embedded as curves on a torus or densely within a torus. This also allows us to determine the torus exactly, provided there is enough data.
