@@ -60,7 +60,7 @@ def compute_persistence_landscape(
     maxAlphaSquare: float = 1e12,
     filtration: str = ["alphaComplex", "vietorisRips", "tangential"],
     maxDimensions: int = 10,
-    edgeLength: float = 0.1,
+    edgeLength: float = 1,
     plot: bool = False,
     smoothen: bool = False,
     sigma: int = 3,
