@@ -10,6 +10,8 @@ In this paper we present an approach to determine the smallest possible number o
 
 **Keywords**: Embedding Dimension, Parameterization, Persistent Homology, Neural Networks and Manifold Learning.
 
+## Citation
+
 ## Content
 
 1. [Invertible autoencoders `autoencoderInvertible.py`](#imageAutoencode)
