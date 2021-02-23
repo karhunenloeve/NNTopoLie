@@ -14,8 +14,15 @@ In this paper we present an approach to determine the smallest possible number o
     @inproceedings{imta7/MelodiaL21,
       author    = {Luciano Melodia and
                    Richard Lenz},
-      editor    = {},
-      title     = {Persistent Homology as Stopping-Criterion for Voronoi Interpolation},
+      editor    = {Del Bimbo, A.,
+                   Cucchiara, R.,
+                   Sclaroff, S.,
+                   Farinella, G.M.,
+                   Mei, T.,
+                   Bertini, M.,
+                   Escalante, H.J.,
+                   Vezzani, R.},
+      title     = {Estimate of the Neural Network Dimension using Algebraic Topology and Lie Theory},
       booktitle = {Pattern Recognition. ICPR International Workshops and Challenges, {IMTA VII}
                    2021, Milano, Italy, January 11, 2021, Proceedings},
       series    = {Lecture Notes in Computer Science},
