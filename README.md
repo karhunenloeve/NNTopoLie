@@ -11,7 +11,22 @@ In this paper we present an approach to determine the smallest possible number o
 **Keywords**: Embedding Dimension, Parameterization, Persistent Homology, Neural Networks and Manifold Learning.
 
 ## Citation
-
+    @inproceedings{imta7/MelodiaL21,
+      author    = {Luciano Melodia and
+                   Richard Lenz},
+      editor    = {},
+      title     = {Persistent Homology as Stopping-Criterion for Voronoi Interpolation},
+      booktitle = {Pattern Recognition. ICPR International Workshops and Challenges, {IMTA VII}
+                   2021, Milano, Italy, January 11, 2021, Proceedings},
+      series    = {Lecture Notes in Computer Science},
+      volume    = {12665},
+      pages     = {15--29},
+      publisher = {Springer},
+      year      = {2021},
+      url       = {https://doi.org/10.1007/978-3-030-68821-9_2},
+      doi       = {10.1007/978-3-030-68821-9_2},
+    }
+    
 ## Content
 
 1. [Invertible autoencoders `autoencoderInvertible.py`](#imageAutoencode)
