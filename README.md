@@ -54,7 +54,7 @@ In this paper we present an approach to determine the smallest possible number o
 3. [Persistence landscapes `persistenceLandscapes.py`]()
     - [Concatenated multiple persistence landscapes](#concatenate_landscapes)
     - [Compute persistence landscapes](#compute_persistence_landscape)
-    - [Compute mean persistence landscapes](#compute_mean_persistence_landscapes)
+    - [Compute mean persistence landscapes](###-compute_mean_persistence_landscapes)
 4. [Persistence statistics `persistenceStatistics.py`]()
     - [Hausdorff intervall](#hausd_interval)
     - [Truncated simplex trees](#truncated_simplex_tree)
